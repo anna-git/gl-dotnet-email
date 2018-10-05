@@ -60,6 +60,11 @@
 
         public Task SendEmailAsync(IEmailAddress from, string subject, string message, IEnumerable<IEmailAttachment> attachments, IEmailAddress[] to, IEmailAddress[] cc, IEmailAddress[] bcc)
         {
+            return SendEmailAsync(from, subject, message, string.Format("<html><header></header><body>{0}</body></html>", message), attachments, to, cc, bcc);
+        }
+
+        public Task SendEmailAsync(IEmailAddress from, string subject, string message, string htmlMessage, IEnumerable<IEmailAttachment> attachments, IEmailAddress[] to, IEmailAddress[] cc, IEmailAddress[] bcc)
+        {
             return DoMockupAndSendEmailAsync(
               from,
               to,
@@ -67,7 +72,7 @@
               bcc,
               subject,
               message,
-              string.Format("<html><header></header><body>{0}</body></html>", message),
+              htmlMessage,
               attachments);
         }
 
